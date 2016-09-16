@@ -1,1 +1,34 @@
-Test
+{% extends "master.html" %}
+{% load staticfiles%}
+{% block content %}
+{% for message in messages%}
+    {% if 'error' in message.tags %}
+        <div class="alert alert-danger">
+            {{message}}
+        </div>
+    {% endif %}
+{% endfor %}
+
+<div class="col-md-8" style="border-right:1px dashed black;height:100%">
+    <div style="text-align:center">
+        <img style="margin:0 auto" width="25%" src={% static "images/fci_new.png" %} />
+    </div>
+    <a href="/resources/a.txt">qwer</a>
+    <div style="margin-top:5%;text-align:justify;margin-left:3%;margin-right:5%">
+         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas bibendum lectus ac condimentum lobortis. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed nec augue iaculis, condimentum ante a, maximus nibh. Maecenas nec nibh eu sem laoreet laoreet vitae id enim. Praesent non mi luctus diam posuere consectetur dapibus viverra velit. Pellentesque rhoncus libero ac velit molestie, in finibus nisl sollicitudin. Nam ultricies nunc turpis, ut luctus dolor facilisis in. Nam tempus tortor et justo viverra, et mollis elit finibus. Nullam ut accumsan est. Maecenas malesuada dapibus tellus quis mollis. Maecenas maximus imperdiet arcu ut pretium. 
+    </div>
+</div>
+<div class="col-md-4">
+    <form class="form-signin" action="/sign_in/" method="post">
+        {% csrf_token %}
+        <h2 class="form-signin-heading" style="text-align:center">Gemdeps Sign in</h2>
+        <label for="username" class="sr-only">Email address</label>
+        <input type="text" name="username" id="username" class="form-control" placeholder="Username" required autofocus>
+        <br />
+        <label for="password" class="sr-only">Password</label>
+        <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
+        <br />
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+    </form>
+</div>
+{% endblock %}
