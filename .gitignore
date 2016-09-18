@@ -92,6 +92,6 @@ ENV/
 # Vim swap files
 *.swp
 
-*/webgemdeps/resources/*
+webgemdeps/resources/*
 
 *sqlite3
