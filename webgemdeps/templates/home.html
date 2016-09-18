@@ -23,10 +23,29 @@
         </div>
         <div class="panel-body">
             <table class="table table-striped">
-                {% for app in apps %}
+                <tr>
+                    <td><b>App Name</td>
+                    <td><b>Version</td>
+                    <td><b>Status</td>
+                    <td></td>
+                </tr>
+                {% for app in pending_apps %}
                 <tr>
                     <td>{{app.name}}</td>
                     <td>{{app.version}}</td>
+                    <td>PENDING</td>
+                    <td style="text-align:right">
+                        <a class="btn btn-success disabled" href="/status/{{app.name}}_{{app.version}}">View</a>
+                        <a class="btn btn-primary disabled" href="/todo/{{app.name}}_{{app.version}}">ToDo</a>
+                        <a class="btn btn-danger disabled" href="/delete/{{app.name}}_{{app.version}}">Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+                 {% for app in completed_apps %}
+                <tr>
+                    <td>{{app.name}}</td>
+                    <td>{{app.version}}</td>
+                    <td>ACTIVE</td>
                     <td style="text-align:right">
                         <a class="btn btn-success" href="/status/{{app.name}}_{{app.version}}">View</a>
                         <a class="btn btn-primary" href="/todo/{{app.name}}_{{app.version}}">ToDo</a>

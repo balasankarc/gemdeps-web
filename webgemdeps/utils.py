@@ -5,11 +5,28 @@ import os
 from celery.decorators import task
 from celery.utils.log import get_task_logger
 from gemdeps import GemDeps
+from webgemdeps.models import Job
 
 logger = get_task_logger(__name__)
 
 
 def get_available_apps():
+    completed_apps = []
+    pending_apps = []
+    for job in Job.objects.all():
+        celery_result = get_status.AsyncResult(str(job.job_id))
+        print celery_result.status
+        position = job.appname.index('-')
+        name = job.appname[:position]
+        version = job.appname[position + 1:]
+        if celery_result.status == 'SUCCESS':
+            completed_apps.append({'name': name, 'version': version})
+        elif celery_result.status == 'PENDING':
+            pending_apps.append({'name': name, 'version': version})
+    return completed_apps, pending_apps
+
+
+def get_available_apps2():
     RESOURCE_PATH = get_resource_path()
     print RESOURCE_PATH
     directories = [os.path.join(RESOURCE_PATH, x) for x in
