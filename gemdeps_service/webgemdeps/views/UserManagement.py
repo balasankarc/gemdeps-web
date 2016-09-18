@@ -40,7 +40,7 @@ class UserSignIn(View):
             else:
                 messages.error(request, "Something went wrong.")
                 raise Exception
-        except Exception, e:
+        except Exception as e:
             print e
             return render(request, 'index.html')
 
