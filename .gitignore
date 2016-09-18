@@ -93,3 +93,5 @@ ENV/
 *.swp
 
 */webgemdeps/resources/*
+
+*sqlite3
