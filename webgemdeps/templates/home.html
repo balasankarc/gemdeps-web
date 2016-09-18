@@ -35,9 +35,9 @@
                     <td>{{app.version}}</td>
                     <td>PENDING</td>
                     <td style="text-align:right">
-                        <a class="btn btn-success disabled" href="/status/{{app.name}}_{{app.version}}">View</a>
-                        <a class="btn btn-primary disabled" href="/todo/{{app.name}}_{{app.version}}">ToDo</a>
-                        <a class="btn btn-danger disabled" href="/delete/{{app.name}}_{{app.version}}">Delete</a>
+                        <a class="btn btn-success disabled" href="/status/{{app.appname}}">View</a>
+                        <a class="btn btn-primary disabled" href="/todo/{{app.appname}}">ToDo</a>
+                        <a class="btn btn-danger disabled" href="/delete/{{app.appname}}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}
@@ -47,9 +47,9 @@
                     <td>{{app.version}}</td>
                     <td>ACTIVE</td>
                     <td style="text-align:right">
-                        <a class="btn btn-success" href="/status/{{app.name}}_{{app.version}}">View</a>
-                        <a class="btn btn-primary" href="/todo/{{app.name}}_{{app.version}}">ToDo</a>
-                        <a class="btn btn-danger" href="/delete/{{app.name}}_{{app.version}}">Delete</a>
+                        <a class="btn btn-success" href="/status/{{app.appname}}">View</a>
+                        <a class="btn btn-primary" href="/todo/{{app.appname}}">ToDo</a>
+                        <a class="btn btn-danger" href="/delete/{{app.appname}}">Delete</a>
                     </td>
                 </tr>
                 {% endfor %}

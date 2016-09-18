@@ -20,9 +20,11 @@ def get_available_apps():
         name = job.appname[:position]
         version = job.appname[position + 1:]
         if celery_result.status == 'SUCCESS':
-            completed_apps.append({'name': name, 'version': version})
+            completed_apps.append(
+                {'appname': job.appname, 'name': name, 'version': version})
         elif celery_result.status == 'PENDING':
-            pending_apps.append({'name': name, 'version': version})
+            completed_apps.append(
+                {'appname': job.appname, 'name': name, 'version': version})
     return completed_apps, pending_apps
 
 

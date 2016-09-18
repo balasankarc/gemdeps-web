@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {'set_var': 'webgemdeps.templatetags.set_var'}
         },
     },
 ]
