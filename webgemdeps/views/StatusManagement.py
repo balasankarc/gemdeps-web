@@ -6,7 +6,7 @@ from django.views.generic import View
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
-from webgemdeps.models import User
+from webgemdeps.models import User, Job
 from webgemdeps.forms import SignInForm, NewStatusForm
 from webgemdeps.utils import get_available_apps, get_resource_path, get_status
 
@@ -36,12 +36,18 @@ class StatusCreate(View):
                 folder_name = folder_name.replace(" ", "_")
                 folder = os.path.join(RESOURCE_PATH, folder_name)
                 os.mkdir(folder)
-                with open(os.path.join(folder, 'Gemfile'), 'w') as gemfile:
+                gemfile_path = os.path.join(folder, 'Gemfile')
+                gemfile_lock_path = os.path.join(folder, 'Gemfile.lock')
+                with open(gemfile_path, 'w') as gemfile:
                     gemfile.write(gemfile_content)
-                with open(os.path.join(folder, 'Gemfile.lock'), 'w') as gemfilelock:
+                with open(gemfile_lock_path, 'w') as gemfilelock:
                     gemfilelock.write(gemfile_lock_content)
                 result = get_status.delay(folder, clean_name, input_version)
-                print result.id
+                job = Job(appname=folder_name)
+                job.save()
+                job.job_id = result.id
+                job.save()
+                print job.appname, job.job_id
             else:
                 raise Exception
         except Exception as e:
