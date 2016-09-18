@@ -4,6 +4,7 @@
 {% for message in messages%}
     {% if 'error' in message.tags %}
         <div class="alert alert-danger">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
             {{message}}
         </div>
     {% endif %}
