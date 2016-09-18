@@ -2,6 +2,12 @@
 
 import os
 
+from celery.decorators import task
+from celery.utils.log import get_task_logger
+from gemdeps import GemDeps
+
+logger = get_task_logger(__name__)
+
 
 def get_available_apps():
     RESOURCE_PATH = get_resource_path()
@@ -28,3 +34,13 @@ def get_resource_path():
         __file__)))
     RESOURCE_PATH = os.path.join(APP_PATH, 'webgemdeps', 'resources')
     return RESOURCE_PATH
+
+
+@task
+def get_status(path, appname, version):
+    core = GemDeps(appname)
+    gemfile_path = os.path.join(path, 'Gemfile')
+    core.process(gemfile_path)
+    core.write_output(path)
+    core.generate_dot(path)
+    return True

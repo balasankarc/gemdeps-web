@@ -8,8 +8,7 @@ from django.shortcuts import render
 
 from webgemdeps.models import User
 from webgemdeps.forms import SignInForm, NewStatusForm
-from webgemdeps.utils import get_available_apps, get_resource_path
-from webgemdeps.statusbar import get_status
+from webgemdeps.utils import get_available_apps, get_resource_path, get_status
 
 import os
 
