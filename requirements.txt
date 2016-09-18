@@ -1,1 +1,4 @@
 django
+django-extensions
+celery
+gemdeps
