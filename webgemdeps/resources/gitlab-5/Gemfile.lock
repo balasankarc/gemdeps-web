@@ -1,4 +1,0 @@
-source 'https://rubygems.org'
-
-# Responders respond_to and respond_with
-gem 'responders', '~> 2.0'

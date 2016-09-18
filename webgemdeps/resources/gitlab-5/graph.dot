@@ -1,5 +1,0 @@
-digraph gitlab
-{
-"responders"[color=green];
-"gitlab"->"responders";
-}

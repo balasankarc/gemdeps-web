@@ -1,5 +1,0 @@
-digraph t
-{
-"responders"[color=green];
-"t"->"responders";
-}
