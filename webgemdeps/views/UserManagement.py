@@ -1,16 +1,15 @@
 #!/usr/bin/env python
 
-from django.contrib.auth import authenticate, login, logout
+import os
+
 from django.contrib import messages
-from django.views.generic import View
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
-
-from webgemdeps.models import User
+from django.views.generic import View
 from webgemdeps.forms import SignInForm
+from webgemdeps.models import User
 from webgemdeps.utils import get_available_apps
-
-import os
 
 
 class UserSignIn(View):
