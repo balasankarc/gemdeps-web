@@ -2,17 +2,17 @@
 {% load staticfiles%}
 {% block content %}
 {% for message in messages%}
-    {% if 'error' in message.tags %}
-        <div class="alert alert-danger">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{message}}
-        </div>
-    {% elif 'success' in message.tags %}
-        <div class="alert alert-success">
-          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-            {{message}}
-        </div>
-    {% endif %}
+{% if 'error' in message.tags %}
+<div class="alert alert-danger">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{message}}
+</div>
+{% elif 'success' in message.tags %}
+<div class="alert alert-success">
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+    {{message}}
+</div>
+{% endif %}
 {% endfor %}
 
 
@@ -41,7 +41,7 @@
                     </td>
                 </tr>
                 {% endfor %}
-                 {% for app in completed_apps %}
+                {% for app in completed_apps %}
                 <tr>
                     <td>{{app.name}}</td>
                     <td>{{app.version}}</td>
@@ -63,7 +63,7 @@
             <h3 class="panel-title">Add New Statistics</h3>
         </div>
         <div class="panel-body">
-            <form class="form-signin" action="/new_status/" method="post" enctype=multipart/form-data>
+           <form class="form-signin" action="/new_status/" method="post" enctype=multipart/form-data>
                 {% csrf_token %}
                 <label for="appname" class="sr-only">App Name</label>
                 <input type="text" id="appname" name="appname" class="form-control" placeholder="Application Name" required autofocus>
