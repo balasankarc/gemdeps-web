@@ -22,38 +22,42 @@
             <h3 class="panel-title">Existing Statistics</h3>
         </div>
         <div class="panel-body">
-            <table class="table table-striped">
-                <tr>
-                    <td><b>App Name</td>
-                    <td><b>Version</td>
-                    <td><b>Status</td>
-                    <td></td>
-                </tr>
-                {% for app in pending_apps %}
-                <tr>
-                    <td>{{app.name}}</td>
-                    <td>{{app.version}}</td>
-                    <td>PENDING</td>
-                    <td style="text-align:right">
-                        <a class="btn btn-success disabled" href="/status/{{app.appname}}">View</a>
-                        <a class="btn btn-primary disabled" href="/todo/{{app.appname}}">ToDo</a>
-                        <btn class="btn btn-danger disabled" onclick="deleteConfirm({{app.appname}})">Delete</btn>
-                    </td>
-                </tr>
-                {% endfor %}
-                {% for app in completed_apps %}
-                <tr>
-                    <td>{{app.name}}</td>
-                    <td>{{app.version}}</td>
-                    <td>ACTIVE</td>
-                    <td style="text-align:right">
-                        <a class="btn btn-success" href="/status/{{app.appname}}">View</a>
-                        <a class="btn btn-primary" href="/todo/{{app.appname}}">ToDo</a>
-                        <btn class="btn btn-danger" onClick="deleteConfirm('{{app.appname}}');">Delete</btn>
-                    </td>
-                </tr>
-                {% endfor %}
-            </table>
+            {% if not any_apps %}
+            <div class="alert alert-danger">No statistics available. Add some using right Panel.</div>
+            {% else %}
+                <table class="table table-striped">
+                    <tr>
+                        <td><b>App Name</td>
+                        <td><b>Version</td>
+                        <td><b>Status</td>
+                        <td></td>
+                    </tr>
+                    {% for app in pending_apps %}
+                    <tr>
+                        <td>{{app.name}}</td>
+                        <td>{{app.version}}</td>
+                        <td>PENDING</td>
+                        <td style="text-align:right">
+                            <a class="btn btn-success disabled" href="/status/{{app.appname}}">View</a>
+                            <a class="btn btn-primary disabled" href="/todo/{{app.appname}}">ToDo</a>
+                            <btn class="btn btn-danger disabled" onclick="deleteConfirm({{app.appname}})">Delete</btn>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    {% for app in completed_apps %}
+                    <tr>
+                        <td>{{app.name}}</td>
+                        <td>{{app.version}}</td>
+                        <td>ACTIVE</td>
+                        <td style="text-align:right">
+                            <a class="btn btn-success" href="/status/{{app.appname}}">View</a>
+                            <a class="btn btn-primary" href="/todo/{{app.appname}}">ToDo</a>
+                            <btn class="btn btn-danger" onClick="deleteConfirm('{{app.appname}}');">Delete</btn>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% endif %}
         </div>
     </div>
 </div>

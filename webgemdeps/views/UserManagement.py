@@ -68,8 +68,12 @@ class UserHome(View):
     def get(self, request):
         if request.user.is_authenticated():
             completed_apps, pending_apps = get_available_apps()
+            any_apps = False
+            if completed_apps or pending_apps:
+                any_apps = True
             return render(request, 'home.html',
-                          {'completed_apps': completed_apps,
+                          {'any_apps': any_apps,
+                           'completed_apps': completed_apps,
                            'pending_apps': pending_apps})
         else:
             return HttpResponseRedirect('/')
