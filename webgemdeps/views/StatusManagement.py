@@ -3,13 +3,14 @@
 import json
 import os
 import re
-import time
 import shutil
+import time
 from distutils.version import LooseVersion
 
 from django.contrib import messages
 from django.contrib.auth import authenticate
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import (HttpResponse, HttpResponseRedirect,
+                         HttpResponseForbidden)
 from django.shortcuts import render
 from django.views.generic import View
 
@@ -24,6 +25,8 @@ class StatusCreate(View):
     """
 
     def post(self, request):
+        if not request.user.is_authenticated():
+            return HttpResponseForbidden('User not authenticated')
         form = NewStatusForm(request.POST, request.FILES)
         try:
             if form.is_valid():
@@ -234,22 +237,14 @@ class ToDoShow(View):
                                 mismatch = position
                                 break
                         if mismatch == 0:
-                            major += " - [ ] " + item['name'] + " | " +\
-                                item['requirement'] + " | " + version_raw +\
-                                "<br />"
+                            major += string_incomplete
                         elif mismatch == 1:
                             if required.version[0] > 0:
-                                minor_stable += " - [ ] " + item['name'] + " | " +\
-                                    item['requirement'] + " | " + version_raw +\
-                                    "<br />"
+                                minor_stable += string_incomplete
                             else:
-                                minor_devel += " - [ ] " + item['name'] + " | " +\
-                                    item['requirement'] + " | " + version_raw +\
-                                    "<br />"
+                                minor_devel += string_incomplete
                         elif mismatch == 2:
-                            patch += " - [ ] " + item['name'] + " | " +\
-                                item['requirement'] + " | " + version_raw +\
-                                "<br />"
+                            patch += string_incomplete
         output = ""
         if unpackaged != "":
             unpackaged = "**Unpackaged gems** <br />" + unpackaged
@@ -287,7 +282,9 @@ class StatusDelete(View):
                 folder = os.path.join(RESOURCE_PATH, appname)
                 print folder
                 shutil.rmtree(folder)
-            except Exception, e:
+            except Exception as e:
                 print e, "qer"
                 pass
+        else:
+            return HttpResponseForbidden()
         return HttpResponseRedirect('/')
